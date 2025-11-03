@@ -1,28 +1,286 @@
-<!-- 这是一个适合初学者的简单案例结构 -->
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>我的学习空间</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>端午佳节南京HAM户外日 - 2024年夏季野架活动</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 20px; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .project { 
-            border: 1px solid #ddd; 
-            padding: 15px; 
-            margin: 10px 0; 
-            border-radius: 5px; 
+
+        body {
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .activity-title {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-subtitle {
+            color: #7f8c8d;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .activity-date {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .call-signs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .call-sign {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .call-sign:hover {
+            transform: translateY(-2px);
+            background: #bbdefb;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .github { background: linear-gradient(45deg, #24292e, #3f4448); }
+        .netlify { background: linear-gradient(45deg, #00c7b7, #00d4c0); }
+        .qq { background: linear-gradient(45deg, #12b7f5, #0e9dd7); }
+        .email { background: linear-gradient(45deg, #d44638, #c13525); }
+
+        .activity-image {
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            background: linear-gradient(45deg, #8e44ad, #3498db);
+            border-radius: 10px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .organization {
+            text-align: center;
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .activity-title {
+                font-size: 2em;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-btn {
+                width: 200px;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>欢迎来到我的学习空间</h1>
-    <div class="project">
-        <h3>项目一: 个人介绍页面</h3>
-        <p>这是我的第一个GitHub Pages项目</p>
+    <div class="container">
+        <!-- 头部标题区域 -->
+        <div class="header">
+            <h1 class="activity-title">端午佳节南京HAM户外日</h1>
+            <div class="activity-subtitle">2024年夏季野架活动</div>
+            <div class="activity-date">2024年6月9日</div>
+            <div class="organization">江苏省无线电和定向运动协会</div>
+        </div>
+
+        <!-- 内容网格布局 -->
+        <div class="content-grid">
+            <!-- 活动信息卡片 -->
+            <div class="info-card">
+                <h2 class="card-title">活动信息</h2>
+                <p><strong>活动名称：</strong>端午佳节南京HAM户外日</p>
+                <p><strong>活动时间：</strong>2024年6月9日</p>
+                <p><strong>活动类型：</strong>夏季野外架台活动</p>
+                <p><strong>主办单位：</strong>江苏省无线电和定向运动协会</p>
+                <p><strong>活动内容：</strong>业余无线电通联、设备展示、技术交流、户外露营等</p>
+            </div>
+
+            <!-- 参与人员卡片 -->
+            <div class="info-card">
+                <h2 class="card-title">参与人员呼号</h2>
+                <div class="call-signs">
+                    <div class="call-sign">BH6ASH</div>
+                    <div class="call-sign">BA4QEF</div>
+                    <div class="call-sign">BI7AQU</div>
+                    <div class="call-sign">BD4USG</div>
+                    <div class="call-sign">BA4QBY</div>
+                    <div class="call-sign">BA4QLP</div>
+                    <div class="call-sign">BA4QBZ</div>
+                    <div class="call-sign">BD4RFG</div>
+                    <div class="call-sign">BG61CT</div>
+                    <div class="call-sign">BA4RN</div>
+                    <div class="call-sign">BD4UPG</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 活动图片占位区 -->
+        <div class="activity-image">
+            🎯 业余无线电活动精彩瞬间<br>
+            （这里是活动照片展示区域）
+        </div>
+
+        <!-- 联系方式区域 -->
+        <div class="contact-info">
+            <h2 class="card-title">我的联系方式</h2>
+            <div class="contact-links">
+                <a href="https://chen-0220.github.io/" class="contact-btn github" target="_blank">
+                    🌐 GitHub网站
+                </a>
+                <a href="https://kaleidoscopic-gelato-1cb652.netlify.app" class="contact-btn netlify" target="_blank">
+                    🚀 Netlify网站
+                </a>
+                <a href="tencent://message/?uin=1215149771" class="contact-btn qq">
+                    💬 QQ联系
+                </a>
+                <a href="mailto:1215149771@qq.com" class="contact-btn email">
+                    📧 邮箱联系
+                </a>
+            </div>
+        </div>
     </div>
+
+    <script>
+        // 简单的交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为呼号添加点击效果
+            const callSigns = document.querySelectorAll('.call-sign');
+            callSigns.forEach(sign => {
+                sign.addEventListener('click', function() {
+                    this.style.background = '#4caf50';
+                    this.style.color = 'white';
+                    setTimeout(() => {
+                        this.style.background = '';
+                        this.style.color = '';
+                    }, 1000);
+                });
+            });
+
+            // 页面加载动画
+            const elements = document.querySelectorAll('.header, .info-card, .contact-info');
+            elements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    element.style.transition = 'all 0.6s ease';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
 </body>
 </html>
