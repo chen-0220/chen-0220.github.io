@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>联系方式组件</title>
+    <title>联系方式组件（优化版）</title>
     <style>
         /* 重置样式 */
         * {
@@ -12,7 +12,7 @@
             box-sizing: border-box;
         }
 
-        /* 联系方式模块样式 */
+        /* 联系方式模块核心样式 */
         .contact-info {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
@@ -20,7 +20,8 @@
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 20px auto;
+            transition: all 0.5s ease;
         }
 
         .contact-info .card-title {
@@ -29,6 +30,7 @@
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 3px solid #667eea;
+            letter-spacing: 1px;
         }
 
         .contact-links {
@@ -50,128 +52,216 @@
             transition: all 0.3s ease;
             font-weight: bold;
             cursor: pointer;
+            border: none;
+            font-size: 1em;
+            font-family: inherit;
         }
 
+        /* 按钮hover增强效果 */
         .contact-btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.02);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
-        /* 各平台按钮配色 */
-        .github { background: linear-gradient(45deg, #24292e, #3f4448); }
-        .netlify { background: linear-gradient(45deg, #00c7b7, #00d4c0); }
+        /* 各平台按钮配色优化（渐变更自然） */
+        .github { background: linear-gradient(45deg, #1f2428, #3f4448); }
+        .netlify { background: linear-gradient(45deg, #00b8a9, #00d4c0); }
         .qq { 
-            background: linear-gradient(45deg, #12b7f5, #0e9dd7); 
-            position: relative; /* 用于hover时显示图片 */
+            background: linear-gradient(45deg, #0fa8dc, #0e9dd7); 
+            position: relative;
+            overflow: hidden;
         }
-        .email { background: linear-gradient(45deg, #d44638, #c13525); }
+        .email { background: linear-gradient(45deg, #c9302c, #a9302c); }
 
-        /* QQ按钮hover时显示图片 */
-        .qq:hover::after {
+        /* QQ hover显示二维码（优化图片加载和显示效果） */
+        .qq::after {
             content: '';
             position: absolute;
-            top: -200px; /* 图片显示在按钮上方 */
+            top: -220px;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px;
-            height: 150px;
-            background: url("images/QQ.png") no-repeat center;
+            width: 160px;
+            height: 160px;
+            background: url("images/temp_qrcode_share.png") no-repeat center;
             background-size: cover;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 3px solid white;
         }
 
-        /* 响应式适配 */
+        .qq:hover::after {
+            opacity: 1;
+            visibility: visible;
+            top: -200px;
+        }
+
+        /* 响应式适配优化 */
         @media (max-width: 768px) {
             .contact-links {
                 flex-direction: column;
                 align-items: center;
+                gap: 15px;
             }
             .contact-btn {
-                width: 200px;
+                width: 220px;
                 justify-content: center;
+                padding: 14px 25px;
+            }
+            .qq::after {
+                top: -170px;
+                width: 130px;
+                height: 130px;
             }
             .qq:hover::after {
-                top: -150px; /* 移动端调整图片位置 */
-                width: 120px;
-                height: 120px;
+                top: -150px;
             }
         }
 
-        /* 复制成功提示样式 */
+        /* 复制成功提示（优化动画和样式） */
         .copy-toast {
             position: fixed;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(22, 160, 133, 0.9);
             color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 8px;
             z-index: 9999;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
+
         .copy-toast.show {
             opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 图片加载失败降级处理 */
+        .qq:hover::before {
+            content: '二维码加载失败';
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 160px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 3px solid white;
+            font-size: 0.9em;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .qq:hover::after:not([style*="background-image: none"]) + ::before {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <!-- 联系方式模块 - 可直接复制到其他页面使用 -->
+    <!-- 联系方式模块 - 可直接复制复用 -->
     <div class="contact-info">
         <h2 class="card-title">我的联系方式</h2>
         <div class="contact-links">
-            <a href="https://chen-0220.github.io/" class="contact-btn github" target="_blank">
+            <a href="https://chen-0220.github.io/" class="contact-btn github" target="_blank" rel="noopener noreferrer">
                 🌐 GitHub网站
             </a>
-            <a href="https://kaleidoscopic-gelato-1cb652.netlify.app" class="contact-btn netlify" target="_blank">
+            <a href="https://kaleidoscopic-gelato-1cb652.netlify.app" class="contact-btn netlify" target="_blank" rel="noopener noreferrer">
                 🚀 Netlify网站
             </a>
-            <a href="tencent://message/?uin=1215149771" class="contact-btn qq">
+            <a href="tencent://message/?uin=1215149771" class="contact-btn qq" target="_blank" rel="noopener noreferrer">
                 💬 QQ联系
             </a>
-            <div class="contact-btn email" id="emailBtn">
+            <button class="contact-btn email" id="emailBtn">
                 📧 邮箱联系
-            </div>
+            </button>
         </div>
     </div>
 
-    <div class="copy-toast" id="toast">已复制邮箱地址: 1215149771@qq.com</div>
+    <div class="copy-toast" id="toast">已复制邮箱：1215149771@qq.com</div>
 
     <script>
-        // 页面加载动画
+        // 统一配置项（方便后续修改）
+        const config = {
+            email: '1215149771@qq.com',
+            toastDuration: 2000,
+            loadDelay: 200
+        };
+
+        // 页面加载动画（优化过渡效果）
         const contactInfo = document.querySelector('.contact-info');
         contactInfo.style.opacity = '0';
         contactInfo.style.transform = 'translateY(20px)';
         
         setTimeout(() => {
-            contactInfo.style.transition = 'all 0.6s ease';
+            contactInfo.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
             contactInfo.style.opacity = '1';
             contactInfo.style.transform = 'translateY(0)';
-        }, 200);
+        }, config.loadDelay);
 
-        // 邮箱复制功能
+        // 邮箱复制功能（优化兼容性和稳定性）
         const emailBtn = document.getElementById('emailBtn');
         const toast = document.getElementById('toast');
-        const email = '1215149771@qq.com';
 
-        emailBtn.addEventListener('click', () => {
-            // 创建临时input元素用于复制
-            const tempInput = document.createElement('input');
-            tempInput.value = email;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
+        emailBtn.addEventListener('click', async () => {
+            try {
+                // 优先使用现代API（更稳定）
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(config.email);
+                } else {
+                    // 降级方案（兼容旧浏览器）
+                    const tempInput = document.createElement('input');
+                    tempInput.value = config.email;
+                    tempInput.style.position = 'absolute';
+                    tempInput.style.opacity = '0';
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                }
 
-            // 显示复制成功提示
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2000);
+                // 显示成功提示
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, config.toastDuration);
+            } catch (err) {
+                // 错误处理
+                toast.textContent = '复制失败，请手动复制：' + config.email;
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+                console.error('复制邮箱失败：', err);
+            }
         });
+
+        // 二维码图片加载失败监听（增强鲁棒性）
+        const checkQrCodeLoad = () => {
+            const img = new Image();
+            img.src = 'images/temp_qrcode_share.png';
+            img.onerror = () => {
+                console.warn('QQ二维码图片加载失败，请检查路径是否正确');
+            };
+        };
+
+        // 页面加载完成后检查图片
+        window.addEventListener('load', checkQrCodeLoad);
     </script>
 </body>
 </html>
