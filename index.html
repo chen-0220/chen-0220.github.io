@@ -187,15 +187,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- 头部标题区域 -->
-
-
-            <!-- 参与人员卡片 -->
-
-
-        <!-- 活动图片占位区 -->
-
-
         <!-- 联系方式区域 -->
         <div class="contact-info">
             <h2 class="card-title">我的联系方式</h2>
@@ -217,20 +208,7 @@
     </div>
 
     <script>
-        // 简单的交互效果
-        document.addEventListener('DOMContentLoaded', function() {
-            // 为呼号添加点击效果
-            const callSigns = document.querySelectorAll('.call-sign');
-            callSigns.forEach(sign => {
-                sign.addEventListener('click', function() {
-                    this.style.background = '#4caf50';
-                    this.style.color = 'white';
-                    setTimeout(() => {
-                        this.style.background = '';
-                        this.style.color = '';
-                    }, 1000);
-                });
-            });
+
 
             // 页面加载动画
             const elements = document.querySelectorAll('.header, .info-card, .contact-info');
