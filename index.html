@@ -3,265 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>联系方式组件（优化版）</title>
+    <title>Umi4 + Ant Design Pro + TailwindCSS 网站</title>
+    <!-- 引入TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Ant Design样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/antd@4/dist/antd.min.css">
+    <!-- 引入图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* 重置样式 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-
-        /* 联系方式模块核心样式 */
-        .contact-info {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 1200px;
-            margin: 20px auto;
-            transition: all 0.5s ease;
-        }
-
-        .contact-info .card-title {
-            color: #2c3e50;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
-            letter-spacing: 1px;
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .contact-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 25px;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
+        .card-hover {
             transition: all 0.3s ease;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            font-size: 1em;
-            font-family: inherit;
         }
-
-        /* 按钮hover增强效果 */
-        .contact-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
-
-        /* 各平台按钮配色优化（渐变更自然） */
-        .github { background: linear-gradient(45deg, #1f2428, #3f4448); }
-        .netlify { background: linear-gradient(45deg, #00b8a9, #00d4c0); }
-        .qq { 
-            background: linear-gradient(45deg, #0fa8dc, #0e9dd7); 
-            position: relative;
-            overflow: hidden;
-        }
-        .email { background: linear-gradient(45deg, #c9302c, #a9302c); }
-
-        /* QQ hover显示二维码（优化图片加载和显示效果） */
-        .qq::after {
-            content: '';
-            position: absolute;
-            top: -220px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 160px;
-            height: 160px;
-            background: url("images/temp_qrcode_share.png") no-repeat center;
-            background-size: cover;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            border: 3px solid white;
-        }
-
-        .qq:hover::after {
-            opacity: 1;
-            visibility: visible;
-            top: -200px;
-        }
-
-        /* 响应式适配优化 */
-        @media (max-width: 768px) {
-            .contact-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-            .contact-btn {
-                width: 220px;
-                justify-content: center;
-                padding: 14px 25px;
-            }
-            .qq::after {
-                top: -170px;
-                width: 130px;
-                height: 130px;
-            }
-            .qq:hover::after {
-                top: -150px;
-            }
-        }
-
-        /* 复制成功提示（优化动画和样式） */
-        .copy-toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: rgba(22, 160, 133, 0.9);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            z-index: 9999;
-            opacity: 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .copy-toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        /* 图片加载失败降级处理 */
-        .qq:hover::before {
-            content: '二维码加载失败';
-            position: absolute;
-            top: -200px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 160px;
-            height: 160px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 998;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            border: 3px solid white;
-            font-size: 0.9em;
-            text-align: center;
-            padding: 10px;
-        }
-
-        .qq:hover::after:not([style*="background-image: none"]) + ::before {
-            display: none;
+        .stat-card {
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            border-radius: 12px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
-<body>
-    <!-- 联系方式模块 - 可直接复制复用 -->
-    <div class="contact-info">
-        <h2 class="card-title">我的联系方式</h2>
-        <div class="contact-links">
-            <a href="https://chen-0220.github.io/" class="contact-btn github" target="_blank" rel="noopener noreferrer">
-                🌐 GitHub网站
-            </a>
-            <a href="https://kaleidoscopic-gelato-1cb652.netlify.app" class="contact-btn netlify" target="_blank" rel="noopener noreferrer">
-                🚀 Netlify网站
-            </a>
-            <a href="tencent://message/?uin=1215149771" class="contact-btn qq" target="_blank" rel="noopener noreferrer">
-                💬 QQ联系
-            </a>
-            <button class="contact-btn email" id="emailBtn">
-                📧 邮箱联系
-            </button>
+<body class="bg-gray-50">
+    <!-- 导航栏 -->
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-cube text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold text-gray-800">TechStack</span>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-blue-600 font-medium border-b-2 border-blue-600 pb-1">首页</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">产品</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">解决方案</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">文档</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">关于我们</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        登录
+                    </button>
+                    <button class="md:hidden text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-    </div>
+    </header>
 
-    <div class="copy-toast" id="toast">已复制邮箱：1215149771@qq.com</div>
+    <!-- 主要内容区域 -->
+    <main>
+        <!-- 英雄区域 -->
+        <section class="hero-gradient text-white py-20">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">现代化全栈开发解决方案</h1>
+                    <p class="text-xl mb-8 opacity-90">基于Umi4、Ant Design Pro、TailwindCSS和Nest.js构建高性能、可扩展的Web应用</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <button class="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                            开始使用
+                        </button>
+                        <button class="px-8 py-3 bg-transparent border-2 border-white rounded-lg font-semibold hover:bg-white hover:bg-opacity-10 transition-colors">
+                            查看演示
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <script>
-        // 统一配置项（方便后续修改）
-        const config = {
-            email: '1215149771@qq.com',
-            toastDuration: 2000,
-            loadDelay: 200
-        };
+        <!-- 特性介绍 -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">技术栈优势</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">结合业界领先的前后端技术，提供卓越的开发体验和产品性能</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-bolt text-blue-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Umi4</h3>
+                        <p class="text-gray-600">基于React的可扩展企业级前端应用框架，提供开箱即用的开发体验。</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-palette text-green-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Ant Design Pro</h3>
+                        <p class="text-gray-600">企业级UI设计语言和React组件库，助力设计系统快速落地。</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-wind text-purple-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">TailwindCSS</h3>
+                        <p class="text-gray-600">功能优先的CSS框架，可以快速构建自定义用户界面。</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-server text-red-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Nest.js</h3>
+                        <p class="text-gray-600">用于构建高效、可扩展的Node.js服务器端应用程序的框架。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        // 页面加载动画（优化过渡效果）
-        const contactInfo = document.querySelector('.contact-info');
-        contactInfo.style.opacity = '0';
-        contactInfo.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            contactInfo.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            contactInfo.style.opacity = '1';
-            contactInfo.style.transform = 'translateY(0)';
-        }, config.loadDelay);
+        <!-- 数据展示区域 -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">数据统计</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">模拟从Nest.js后端API获取的数据展示</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                    <div class="stat-card p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm">用户总数</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-1">12,584</h3>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-users text-blue-600"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-green-500">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span class="text-sm">12.5% 增长</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm">月活跃用户</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-1">8,742</h3>
+                            </div>
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-chart-line text-green-600"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-green-500">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span class="text-sm">8.3% 增长</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-gray-500 text-sm">API请求数</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-1">1.2M</h3>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-exchange-alt text-purple-600"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-green-500">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span class="text-sm">15.7% 增长</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 模拟数据表格 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h3 class="text-lg font-semibold text-gray-800">用户数据列表</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">用户</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">角色</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最后登录</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                                <span class="text-blue-600 font-medium">JD</span>
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">John Doe</div>
+                                                <div class="text-sm text-gray-500">john@example.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">活跃</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">管理员</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-04-15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">编辑</a>
+                                        <a href="#" class="text-red-600 hover:text-red-900">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                                <span class="text-purple-600 font-medium">AS</span>
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">Alice Smith</div>
+                                                <div class="text-sm text-gray-500">alice@example.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">活跃</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">编辑者</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-04-18</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">编辑</a>
+                                        <a href="#" class="text-red-600 hover:text-red-900">删除</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                                                <span class="text-yellow-600 font-medium">BJ</span>
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">Bob Johnson</div>
+                                                <div class="text-sm text-gray-500">bob@example.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">非活跃</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">查看者</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-03-22</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">编辑</a>
+                                        <a href="#" class="text-red-600 hover:text-red-900">删除</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        // 邮箱复制功能（优化兼容性和稳定性）
-        const emailBtn = document.getElementById('emailBtn');
-        const toast = document.getElementById('toast');
+        <!-- 功能演示区域 -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col lg:flex-row items-center">
+                    <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-6">前后端无缝集成</h2>
+                        <p class="text-gray-600 mb-6">Umi4前端与Nest.js后端通过RESTful API进行通信，提供高效的数据交互体验。</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">基于TypeScript的全栈开发，类型安全</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">自动生成API文档，提高开发效率</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">模块化设计，易于维护和扩展</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span class="text-gray-700">完善的错误处理和日志记录</span>
+                            </li>
+                        </ul>
+                        <button class="mt-8 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                            查看API文档
+                        </button>
+                    </div>
+                    <div class="lg:w-1/2 bg-gray-800 rounded-xl p-6 text-gray-200 font-mono text-sm overflow-x-auto">
+                        <div class="mb-4">
+                            <span class="text-green-400">// Nest.js 控制器示例</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-purple-400">@Controller</span><span class="text-white">(</span><span class="text-yellow-300">'users'</span><span class="text-white">)</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-blue-400">export class</span> <span class="text-white">UsersController </span><span class="text-blue-400">{</span>
+                        </div>
+                        <div class="ml-4 mb-2">
+                            <span class="text-purple-400">@Get</span><span class="text-white">()</span>
+                        </div>
+                        <div class="ml-4 mb-2">
+                            <span class="text-blue-400">async</span> <span class="text-white">findAll(): Promise</span><span class="text-blue-400">&lt;</span><span class="text-white">User</span><span class="text-blue-400">[]&gt; </span><span class="text-white">{</span>
+                        </div>
+                        <div class="ml-8 mb-2">
+                            <span class="text-blue-400">return</span> <span class="text-white"> </span><span class="text-yellow-300">this</span><span class="text-white">.usersService.findAll();</span>
+                        </div>
+                        <div class="ml-4 mb-2 text-white">}</div>
+                        <div class="ml-4 mb-2">
+                            <span class="text-purple-400">@Post</span><span class="text-white">()</span>
+                        </div>
+                        <div class="ml-4 mb-2">
+                            <span class="text-blue-400">async</span> <span class="text-white">create(</span><span class="text-purple-400">@Body</span><span class="text-white">() createUserDto: CreateUserDto) {</span>
+                        </div>
+                        <div class="ml-8 mb-2">
+                            <span class="text-blue-400">return</span> <span class="text-white"> </span><span class="text-yellow-300">this</span><span class="text-white">.usersService.create(createUserDto);</span>
+                        </div>
+                        <div class="ml-4 text-white">}</div>
+                        <div class="text-white">}</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-        emailBtn.addEventListener('click', async () => {
-            try {
-                // 优先使用现代API（更稳定）
-                if (navigator.clipboard && window.isSecureContext) {
-                    await navigator.clipboard.writeText(config.email);
-                } else {
-                    // 降级方案（兼容旧浏览器）
-                    const tempInput = document.createElement('input');
-                    tempInput.value = config.email;
-                    tempInput.style.position = 'absolute';
-                    tempInput.style.opacity = '0';
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempInput);
-                }
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-cube text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">TechStack</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">现代化全栈开发解决方案提供商</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">产品</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Umi4 模板</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Nest.js 中间件</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">UI 组件库</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API 工具</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">资源</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">文档</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">教程</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">博客</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">社区</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">联系我们</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-gray-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">contact@techstack.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone text-gray-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">+86 123 4567 8900</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-gray-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400">北京市朝阳区科技园区</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 TechStack. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
 
-                // 显示成功提示
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, config.toastDuration);
-            } catch (err) {
-                // 错误处理
-                toast.textContent = '复制失败，请手动复制：' + config.email;
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
-                console.error('复制邮箱失败：', err);
-            }
-        });
-
-        // 二维码图片加载失败监听（增强鲁棒性）
-        const checkQrCodeLoad = () => {
-            const img = new Image();
-            img.src = 'images/temp_qrcode_share.png';
-            img.onerror = () => {
-                console.warn('QQ二维码图片加载失败，请检查路径是否正确');
-            };
-        };
-
-        // 页面加载完成后检查图片
-        window.addEventListener('load', checkQrCodeLoad);
-    </script>
+    <!-- 引入Ant Design组件脚本（实际项目中需要更完整的引入方式） -->
+    <script src="https://unpkg.com/antd@4/dist/antd.min.js"></script>
 </body>
 </html>
