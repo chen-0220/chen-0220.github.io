@@ -3,415 +3,949 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umi4 + Ant Design Pro + TailwindCSS 网站</title>
-    <!-- 引入TailwindCSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入Ant Design样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/antd@4/dist/antd.min.css">
-    <!-- 引入图标 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>小叮当的技术博客 - CSDN风格</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .hero-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
         }
-        .card-hover {
-            transition: all 0.3s ease;
+        
+        body {
+            background-color: #f5f6f7;
+            color: #333;
+            line-height: 1.6;
         }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        
+        a {
+            text-decoration: none;
+            color: #333;
         }
-        .stat-card {
-            background: linear-gradient(145deg, #ffffff, #f5f5f5);
-            border-radius: 12px;
-            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
+        
+        ul {
+            list-style: none;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* 顶部导航栏 */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 20px;
+            color: #fc5531;
+        }
+        
+        .nav-links {
+            display: flex;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #fc5531;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #f5f6f7;
+            border-radius: 20px;
+            padding: 5px 15px;
+            width: 200px;
+        }
+        
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            padding: 5px;
+        }
+        
+        /* 用户信息栏 */
+        .user-header {
+            background: #fff;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+        
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+            border: 3px solid #fc5531;
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-gender {
+            margin-left: 10px;
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .user-location {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .user-stats {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .stat-item {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .stat-label {
+            color: #999;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            color: #fc5531;
+        }
+        
+        .user-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* 主要内容区 */
+        .main-content {
+            display: flex;
+            gap: 20px;
+        }
+        
+        /* 内容区 */
+        .content-area {
+            flex: 1;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .content-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tab {
+            padding: 15px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            color: #fc5531;
+            border-bottom: 3px solid #fc5531;
+            background: #fff;
+        }
+        
+        .tab:hover {
+            background: #fff;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* 文章列表 */
+        .article-list {
+            margin-top: 10px;
+        }
+        
+        .article-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .article-item:last-child {
+            border-bottom: none;
+        }
+        
+        .article-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .article-title a {
+            color: #333;
+            transition: color 0.3s;
+        }
+        
+        .article-title a:hover {
+            color: #fc5531;
+        }
+        
+        .article-meta {
+            display: flex;
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+        
+        .article-meta span {
+            margin-right: 15px;
+        }
+        
+        .article-summary {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: #f2f2f2;
+            color: #666;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 2px;
+            margin-right: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .original-badge {
+            display: inline-block;
+            background: #fc5531;
+            color: white;
+            font-size: 12px;
+            padding: 1px 6px;
+            border-radius: 2px;
+            margin-right: 8px;
+        }
+        
+        /* 侧边栏 */
+        .sidebar {
+            width: 320px;
+        }
+        
+        .sidebar-widget {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .widget-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .widget-title i {
+            margin-right: 8px;
+            color: #fc5531;
+        }
+        
+        /* 个人成就 */
+        .achievement-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .achievement-item {
+            text-align: center;
+            padding: 15px 10px;
+            border-radius: 6px;
+            background: #f8f9fa;
+            transition: all 0.3s;
+        }
+        
+        .achievement-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .achievement-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #fc5531;
+        }
+        
+        .achievement-name {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .achievement-desc {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        /* 热门文章 */
+        .hot-article-item {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .hot-article-item:last-child {
+            border-bottom: none;
+        }
+        
+        .hot-article-rank {
+            width: 24px;
+            height: 24px;
+            background: #fc5531;
+            color: #fff;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .hot-article-rank.top3 {
+            background: #fc5531;
+        }
+        
+        .hot-article-title {
+            font-size: 14px;
+            line-height: 1.4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        /* 快捷访问 */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .quick-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+        
+        .quick-link:hover {
+            background: #fc5531;
+            color: #fff;
+        }
+        
+        .quick-link:hover .quick-icon {
+            color: #fff;
+        }
+        
+        .quick-icon {
+            font-size: 18px;
+            margin-right: 10px;
+            color: #fc5531;
+        }
+        
+        .quick-text {
+            font-size: 14px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: #fff;
+            margin-top: 40px;
+            padding: 30px 0;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            margin: 0 10px;
+            color: #666;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #fc5531;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .achievement-list {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 10px 0;
+            }
+            
+            .nav-links {
+                order: 3;
+                width: 100%;
+                margin-top: 10px;
+                justify-content: center;
+            }
+            
+            .search-box {
+                width: 150px;
+            }
+            
+            .user-profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .avatar {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .user-stats {
+                justify-content: center;
+            }
+            
+            .achievement-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- 导航栏 -->
-    <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
-                        <i class="fas fa-cube text-white text-xl"></i>
-                    </div>
-                    <span class="text-xl font-bold text-gray-800">TechStack</span>
+<body>
+    <!-- 顶部导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1>CSDN博客</h1>
                 </div>
-                
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#" class="text-blue-600 font-medium border-b-2 border-blue-600 pb-1">首页</a>
-                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">产品</a>
-                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">解决方案</a>
-                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">文档</a>
-                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">关于我们</a>
-                </nav>
-                
-                <div class="flex items-center space-x-4">
-                    <button class="px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors">
-                        <i class="fas fa-search"></i>
-                    </button>
-                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                        登录
-                    </button>
-                    <button class="md:hidden text-gray-600">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
+                <ul class="nav-links">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">博客</a></li>
+                    <li><a href="#">专栏</a></li>
+                    <li><a href="#">下载</a></li>
+                    <li><a href="#">论坛</a></li>
+                    <li><a href="#">问答</a></li>
+                    <li><a href="#">学院</a></li>
+                </ul>
+                <div class="search-box">
+                    <input type="text" placeholder="搜索博客内容">
                 </div>
-            </div>
+            </nav>
         </div>
     </header>
 
-    <!-- 主要内容区域 -->
-    <main>
-        <!-- 英雄区域 -->
-        <section class="hero-gradient text-white py-20">
-            <div class="container mx-auto px-4">
-                <div class="max-w-3xl mx-auto text-center">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-6">现代化全栈开发解决方案</h1>
-                    <p class="text-xl mb-8 opacity-90">基于Umi4、Ant Design Pro、TailwindCSS和Nest.js构建高性能、可扩展的Web应用</p>
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <button class="px-8 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                            开始使用
-                        </button>
-                        <button class="px-8 py-3 bg-transparent border-2 border-white rounded-lg font-semibold hover:bg-white hover:bg-opacity-10 transition-colors">
-                            查看演示
-                        </button>
+    <div class="container">
+        <!-- 用户信息栏 -->
+        <div class="user-header">
+            <div class="user-profile">
+                <div class="avatar">
+                    <img src="https://via.placeholder.com/80" alt="用户头像">
+                </div>
+                <div class="user-info">
+                    <div class="user-name">
+                        小叮当
+                        <span class="user-gender"><i class="fas fa-female"></i></span>
+                    </div>
+                    <div class="user-location">
+                        <i class="fas fa-map-marker-alt"></i> IP属地：北京
+                    </div>
+                    <div class="user-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">访问量:</span>
+                            <span class="stat-value">3756</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">粉丝:</span>
+                            <span class="stat-value">128</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">关注:</span>
+                            <span class="stat-value">42</span>
+                        </div>
+                    </div>
+                    <div class="user-desc">
+                        天天学习，帮助向上从2024年开始写稿。主页有很多都是学习的总结，借此激励你分享学习成果！
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- 特性介绍 -->
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">技术栈优势</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">结合业界领先的前后端技术，提供卓越的开发体验和产品性能</p>
+        <!-- 主要内容区 -->
+        <div class="main-content">
+            <!-- 内容区 -->
+            <div class="content-area">
+                <div class="content-tabs">
+                    <div class="tab active" data-tab="articles">文章</div>
+                    <div class="tab" data-tab="columns">专栏</div>
+                    <div class="tab" data-tab="code">代码管理</div>
+                    <div class="tab" data-tab="resources">资源管理</div>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="bg-white p-6 rounded-xl shadow-md card-hover">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                            <i class="fas fa-bolt text-blue-600 text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Umi4</h3>
-                        <p class="text-gray-600">基于React的可扩展企业级前端应用框架，提供开箱即用的开发体验。</p>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-xl shadow-md card-hover">
-                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                            <i class="fas fa-palette text-green-600 text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Ant Design Pro</h3>
-                        <p class="text-gray-600">企业级UI设计语言和React组件库，助力设计系统快速落地。</p>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-xl shadow-md card-hover">
-                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                            <i class="fas fa-wind text-purple-600 text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">TailwindCSS</h3>
-                        <p class="text-gray-600">功能优先的CSS框架，可以快速构建自定义用户界面。</p>
-                    </div>
-                    
-                    <div class="bg-white p-6 rounded-xl shadow-md card-hover">
-                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-                            <i class="fas fa-server text-red-600 text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Nest.js</h3>
-                        <p class="text-gray-600">用于构建高效、可扩展的Node.js服务器端应用程序的框架。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- 数据展示区域 -->
-        <section class="py-16 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-4">数据统计</h2>
-                    <p class="text-gray-600 max-w-2xl mx-auto">模拟从Nest.js后端API获取的数据展示</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                    <div class="stat-card p-6">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-gray-500 text-sm">用户总数</p>
-                                <h3 class="text-2xl font-bold text-gray-800 mt-1">12,584</h3>
+                <!-- 文章列表 -->
+                <div class="tab-content active" id="articles">
+                    <div class="article-list">
+                        <div class="article-item">
+                            <h2 class="article-title">
+                                <a href="#">树莓派4B安装Home Assistant</a>
+                            </h2>
+                            <div class="article-meta">
+                                <span class="original-badge">原创</span>
+                                <span>2025-11-09 20:34:57</span>
+                                <span>阅读 499</span>
+                                <span>评论 0</span>
+                                <span>点赞 25</span>
                             </div>
-                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-users text-blue-600"></i>
-                            </div>
-                        </div>
-                        <div class="mt-4 flex items-center text-green-500">
-                            <i class="fas fa-arrow-up mr-1"></i>
-                            <span class="text-sm">12.5% 增长</span>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card p-6">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-gray-500 text-sm">月活跃用户</p>
-                                <h3 class="text-2xl font-bold text-gray-800 mt-1">8,742</h3>
-                            </div>
-                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-chart-line text-green-600"></i>
+                            <p class="article-summary">
+                                如果你希望在树莓派上运行其他服务（如Phiole、AdGuard Home等），Docker提供了更好的灵活性，按照以上步骤，你就能在树莓派4B上成功搭建起功能强大的Home Assistant。开启你的智能家居之旅！
+                            </p>
+                            <div class="article-tags">
+                                <span class="tag">树莓派</span>
+                                <span class="tag">Home Assistant</span>
+                                <span class="tag">智能家居</span>
+                                <span class="tag">Docker</span>
                             </div>
                         </div>
-                        <div class="mt-4 flex items-center text-green-500">
-                            <i class="fas fa-arrow-up mr-1"></i>
-                            <span class="text-sm">8.3% 增长</span>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-card p-6">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-gray-500 text-sm">API请求数</p>
-                                <h3 class="text-2xl font-bold text-gray-800 mt-1">1.2M</h3>
+                        
+                        <div class="article-item">
+                            <h2 class="article-title">
+                                <a href="#">树莓派4B使用指南</a>
+                            </h2>
+                            <div class="article-meta">
+                                <span class="original-badge">原创</span>
+                                <span>2025-11-09 19:31:03</span>
+                                <span>阅读 858</span>
+                                <span>评论 0</span>
+                                <span>点赞 42</span>
                             </div>
-                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-exchange-alt text-purple-600"></i>
+                            <p class="article-summary">
+                                用虚拟化软件系统推荐通过Web服务器完成树莓派桌面一览表。如果想要在树莓派个性化设置中的数据支持下，需要用户将上传到树莓派邮箱中获取更多信息。
+                            </p>
+                            <div class="article-tags">
+                                <span class="tag">树莓派</span>
+                                <span class="tag">使用指南</span>
+                                <span class="tag">教程</span>
                             </div>
                         </div>
-                        <div class="mt-4 flex items-center text-green-500">
-                            <i class="fas fa-arrow-up mr-1"></i>
-                            <span class="text-sm">15.7% 增长</span>
+                        
+                        <div class="article-item">
+                            <h2 class="article-title">
+                                <a href="#">搭建出属于你自己的精彩网站！</a>
+                            </h2>
+                            <div class="article-meta">
+                                <span class="original-badge">原创</span>
+                                <span>2025-11-03 21:08:45</span>
+                                <span>阅读 1195</span>
+                                <span>评论 0</span>
+                                <span>点赞 68</span>
+                            </div>
+                            <p class="article-summary">
+                                最直接、最先做的方案：使用最便捷的网络，它们稳定、免费，是入门学习的绝佳选择。最佳解决方案即注册由GitHub Student Developer Pack，这不仅解决了域名问题，还为你高效的学习带来了难题。
+                            </p>
+                            <div class="article-tags">
+                                <span class="tag">网站搭建</span>
+                                <span class="tag">GitHub</span>
+                                <span class="tag">前端</span>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- 模拟数据表格 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                    <div class="px-6 py-4 border-b border-gray-200">
-                        <h3 class="text-lg font-semibold text-gray-800">用户数据列表</h3>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">用户</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">角色</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最后登录</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                                <span class="text-blue-600 font-medium">JD</span>
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">John Doe</div>
-                                                <div class="text-sm text-gray-500">john@example.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">活跃</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">管理员</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-04-15</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">编辑</a>
-                                        <a href="#" class="text-red-600 hover:text-red-900">删除</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10 bg-purple-100 rounded-full flex items-center justify-center">
-                                                <span class="text-purple-600 font-medium">AS</span>
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Alice Smith</div>
-                                                <div class="text-sm text-gray-500">alice@example.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">活跃</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">编辑者</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-04-18</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">编辑</a>
-                                        <a href="#" class="text-red-600 hover:text-red-900">删除</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-10 w-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                                                <span class="text-yellow-600 font-medium">BJ</span>
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">Bob Johnson</div>
-                                                <div class="text-sm text-gray-500">bob@example.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">非活跃</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">查看者</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2023-03-22</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">编辑</a>
-                                        <a href="#" class="text-red-600 hover:text-red-900">删除</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- 功能演示区域 -->
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col lg:flex-row items-center">
-                    <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10">
-                        <h2 class="text-3xl font-bold text-gray-800 mb-6">前后端无缝集成</h2>
-                        <p class="text-gray-600 mb-6">Umi4前端与Nest.js后端通过RESTful API进行通信，提供高效的数据交互体验。</p>
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                <span class="text-gray-700">基于TypeScript的全栈开发，类型安全</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                <span class="text-gray-700">自动生成API文档，提高开发效率</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                <span class="text-gray-700">模块化设计，易于维护和扩展</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                <span class="text-gray-700">完善的错误处理和日志记录</span>
-                            </li>
-                        </ul>
-                        <button class="mt-8 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                            查看API文档
-                        </button>
-                    </div>
-                    <div class="lg:w-1/2 bg-gray-800 rounded-xl p-6 text-gray-200 font-mono text-sm overflow-x-auto">
-                        <div class="mb-4">
-                            <span class="text-green-400">// Nest.js 控制器示例</span>
+                <!-- 专栏 -->
+                <div class="tab-content" id="columns">
+                    <div class="article-list">
+                        <div class="article-item">
+                            <h2 class="article-title">
+                                <a href="#">树莓派从入门到精通</a>
+                            </h2>
+                            <div class="article-meta">
+                                <span>专栏 · 已更新 5 篇文章</span>
+                                <span>订阅 128</span>
+                            </div>
+                            <p class="article-summary">
+                                本专栏详细介绍了树莓派的各种应用场景，从基础配置到高级应用，帮助您全面掌握树莓派的使用技巧。
+                            </p>
                         </div>
-                        <div class="mb-2">
-                            <span class="text-purple-400">@Controller</span><span class="text-white">(</span><span class="text-yellow-300">'users'</span><span class="text-white">)</span>
+                        
+                        <div class="article-item">
+                            <h2 class="article-title">
+                                <a href="#">前端开发实战指南</a>
+                            </h2>
+                            <div class="article-meta">
+                                <span>专栏 · 已更新 12 篇文章</span>
+                                <span>订阅 256</span>
+                            </div>
+                            <p class="article-summary">
+                                通过实际项目案例，深入讲解前端开发中的各种技术和最佳实践，帮助您成为优秀的前端工程师。
+                            </p>
                         </div>
-                        <div class="mb-2">
-                            <span class="text-blue-400">export class</span> <span class="text-white">UsersController </span><span class="text-blue-400">{</span>
-                        </div>
-                        <div class="ml-4 mb-2">
-                            <span class="text-purple-400">@Get</span><span class="text-white">()</span>
-                        </div>
-                        <div class="ml-4 mb-2">
-                            <span class="text-blue-400">async</span> <span class="text-white">findAll(): Promise</span><span class="text-blue-400">&lt;</span><span class="text-white">User</span><span class="text-blue-400">[]&gt; </span><span class="text-white">{</span>
-                        </div>
-                        <div class="ml-8 mb-2">
-                            <span class="text-blue-400">return</span> <span class="text-white"> </span><span class="text-yellow-300">this</span><span class="text-white">.usersService.findAll();</span>
-                        </div>
-                        <div class="ml-4 mb-2 text-white">}</div>
-                        <div class="ml-4 mb-2">
-                            <span class="text-purple-400">@Post</span><span class="text-white">()</span>
-                        </div>
-                        <div class="ml-4 mb-2">
-                            <span class="text-blue-400">async</span> <span class="text-white">create(</span><span class="text-purple-400">@Body</span><span class="text-white">() createUserDto: CreateUserDto) {</span>
-                        </div>
-                        <div class="ml-8 mb-2">
-                            <span class="text-blue-400">return</span> <span class="text-white"> </span><span class="text-yellow-300">this</span><span class="text-white">.usersService.create(createUserDto);</span>
-                        </div>
-                        <div class="ml-4 text-white">}</div>
-                        <div class="text-white">}</div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
 
-    <!-- 页脚 -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
-                            <i class="fas fa-cube text-white text-xl"></i>
+                <!-- 代码管理 -->
+                <div class="tab-content" id="code">
+                    <div class="article-list">
+                        <div class="article-item">
+                            <h2 class="article-title">
+                                <a href="#">Home Assistant配置代码</a>
+                            </h2>
+                            <div class="article-meta">
+                                <span>代码片段 · Python</span>
+                                <span>下载 42</span>
+                                <span>收藏 15</span>
+                            </div>
+                            <p class="article-summary">
+                                完整的Home Assistant配置文件，包含常用组件和自动化设置。
+                            </p>
                         </div>
-                        <span class="text-xl font-bold">TechStack</span>
+                        
+                        <div class="article-item">
+                            <h2 class="article-title">
+                                <a href="#">响应式网页布局模板</a>
+                            </h2>
+                            <div class="article-meta">
+                                <span>代码片段 · HTML/CSS</span>
+                                <span>下载 86</span>
+                                <span>收藏 32</span>
+                            </div>
+                            <p class="article-summary">
+                                适用于多种设备的响应式网页布局模板，使用Flexbox和Grid实现。
+                            </p>
+                        </div>
                     </div>
-                    <p class="text-gray-400 mb-4">现代化全栈开发解决方案提供商</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-github text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-twitter text-xl"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-linkedin text-xl"></i>
-                        </a>
+                </div>
+
+                <!-- 资源管理 -->
+                <div class="tab-content" id="resources">
+                    <div class="article-list">
+                        <div class="article-item">
+                            <h2 class="article-title">
+                                <a href="#">前端开发资源包</a>
+                            </h2>
+                            <div class="article-meta">
+                                <span>资源 · 125 MB</span>
+                                <span>下载 156</span>
+                                <span>收藏 42</span>
+                            </div>
+                            <p class="article-summary">
+                                包含常用前端库、图标字体和设计资源的完整资源包，适合前端开发者使用。
+                            </p>
+                        </div>
+                        
+                        <div class="article-item">
+                            <h2 class="article-title">
+                                <a href="#">树莓派系统镜像合集</a>
+                            </h2>
+                            <div class="article-meta">
+                                <span>资源 · 2.3 GB</span>
+                                <span>下载 89</span>
+                                <span>收藏 28</span>
+                            </div>
+                            <p class="article-summary">
+                                多种树莓派系统镜像文件，包括Raspberry Pi OS、Ubuntu Server等。
+                            </p>
+                        </div>
                     </div>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">产品</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Umi4 模板</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Nest.js 中间件</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">UI 组件库</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API 工具</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">资源</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">文档</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">教程</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">博客</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">社区</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">联系我们</h3>
-                    <ul class="space-y-2">
-                        <li class="flex items-start">
-                            <i class="fas fa-envelope text-gray-400 mt-1 mr-2"></i>
-                            <span class="text-gray-400">contact@techstack.com</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-phone text-gray-400 mt-1 mr-2"></i>
-                            <span class="text-gray-400">+86 123 4567 8900</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-map-marker-alt text-gray-400 mt-1 mr-2"></i>
-                            <span class="text-gray-400">北京市朝阳区科技园区</span>
-                        </li>
-                    </ul>
                 </div>
             </div>
             
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>© 2023 TechStack. 保留所有权利。</p>
+            <!-- 侧边栏 -->
+            <div class="sidebar">
+                <!-- 个人成就 -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">
+                        <i class="fas fa-trophy"></i> 个人成就
+                    </h3>
+                    <div class="achievement-list">
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <div class="achievement-name">原创达人</div>
+                            <div class="achievement-desc">发表10篇原创</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="achievement-name">热文作者</div>
+                            <div class="achievement-desc">单文阅读超1000</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="achievement-name">代码高手</div>
+                            <div class="achievement-desc">分享优质代码</div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="achievement-name">社区之星</div>
+                            <div class="achievement-desc">粉丝超过100</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 热门文章 -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">
+                        <i class="fas fa-chart-line"></i> 最热文章
+                    </h3>
+                    <div class="hot-article-item">
+                        <div class="hot-article-rank top3">1</div>
+                        <div class="hot-article-title">
+                            <a href="#">华为NISP-单臂路由配置</a>
+                        </div>
+                    </div>
+                    <div class="hot-article-item">
+                        <div class="hot-article-rank top3">2</div>
+                        <div class="hot-article-title">
+                            <a href="#">控制端端口 8.67/CNC连接</a>
+                        </div>
+                    </div>
+                    <div class="hot-article-item">
+                        <div class="hot-article-rank top3">3</div>
+                        <div class="hot-article-title">
+                            <a href="#">周期序列 1:2 关于已创建的A级视频接口</a>
+                        </div>
+                    </div>
+                    <div class="hot-article-item">
+                        <div class="hot-article-rank">4</div>
+                        <div class="hot-article-title">
+                            <a href="#">周期序列 1:2 关于Flushon360</a>
+                        </div>
+                    </div>
+                    <div class="hot-article-item">
+                        <div class="hot-article-rank">5</div>
+                        <div class="hot-article-title">
+                            <a href="#">周期序列 1:2 关于Flyq15</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 快捷访问 -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">
+                        <i class="fas fa-link"></i> 快捷访问
+                    </h3>
+                    <div class="quick-links">
+                        <a href="#" class="quick-link">
+                            <div class="quick-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="quick-text">GitHub</div>
+                        </a>
+                        <a href="#" class="quick-link">
+                            <div class="quick-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="quick-text">代码仓库</div>
+                        </a>
+                        <a href="#" class="quick-link">
+                            <div class="quick-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="quick-text">学习笔记</div>
+                        </a>
+                        <a href="#" class="quick-link">
+                            <div class="quick-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="quick-text">我的项目</div>
+                        </a>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">联系我们</a>
+                <a href="#">服务条款</a>
+                <a href="#">隐私政策</a>
+                <a href="#">帮助中心</a>
+            </div>
+            <p>© 2025 小叮当的技术博客 版权所有</p>
         </div>
     </footer>
 
-    <!-- 引入Ant Design组件脚本（实际项目中需要更完整的引入方式） -->
-    <script src="https://unpkg.com/antd@4/dist/antd.min.js"></script>
+    <script>
+        // 标签切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // 移除所有active类
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // 添加active类到当前标签和内容
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // 关注按钮点击效果
+            const followBtn = document.querySelector('.btn-follow');
+            if (followBtn) {
+                followBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (this.textContent === '关注') {
+                        this.textContent = '已关注';
+                        this.style.background = '#999';
+                    } else {
+                        this.textContent = '关注';
+                        this.style.background = '#fc5531';
+                    }
+                });
+            }
+            
+            // 搜索框聚焦效果
+            const searchInput = document.querySelector('.search-box input');
+            if (searchInput) {
+                searchInput.addEventListener('focus', function() {
+                    this.parentElement.style.boxShadow = '0 0 0 2px rgba(252, 85, 49, 0.2)';
+                });
+                
+                searchInput.addEventListener('blur', function() {
+                    this.parentElement.style.boxShadow = 'none';
+                });
+            }
+            
+            // 文章点击效果
+            const articleItems = document.querySelectorAll('.article-item');
+            articleItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const link = this.querySelector('.article-title a');
+                    if (link) {
+                        window.location.href = link.href;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
