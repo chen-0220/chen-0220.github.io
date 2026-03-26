@@ -3,1061 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小叮当的技术博客 - CSDN风格</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>我的技能简介</title>
     <style>
-        /* 全局样式 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            font-family: Arial, sans-serif;
         }
-        
         body {
-            background-color: #f5f6f7;
-            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
             line-height: 1.6;
         }
-        
-        a {
-            text-decoration: none;
-            color: #333;
-        }
-        
-        ul {
-            list-style: none;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* 顶部导航栏 */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 60px;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo img {
-            height: 30px;
-            margin-right: 10px;
-        }
-        
-        .logo h1 {
-            font-size: 20px;
-            color: #fc5531;
-        }
-        
-        .nav-links {
-            display: flex;
-        }
-        
-        .nav-links li {
-            margin-left: 25px;
-        }
-        
-        .nav-links a {
-            font-size: 16px;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        
-        .nav-links a:hover {
-            color: #fc5531;
-        }
-        
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: #f5f6f7;
-            border-radius: 20px;
-            padding: 5px 15px;
-            width: 200px;
-        }
-        
-        .search-box input {
-            border: none;
-            background: transparent;
-            outline: none;
-            width: 100%;
-            padding: 5px;
-        }
-        
-        /* 主要内容区 */
-        .main-content {
-            display: flex;
-            margin-top: 20px;
-            gap: 20px;
-        }
-        
-        /* 侧边栏 */
-        .sidebar {
-            width: 300px;
-            flex-shrink: 0;
-        }
-        
-        .sidebar-widget {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            padding: 20px;
+        .card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
             margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        
-        .widget-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-        }
-        
-        .widget-title i {
-            margin-right: 8px;
-            color: #fc5531;
-        }
-        
-        /* 用户信息 */
-        .user-info {
-            text-align: center;
-        }
-        
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            overflow: hidden;
-            border: 3px solid #fc5531;
-        }
-        
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .username {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .user-location {
-            color: #666;
-            font-size: 14px;
+        h1 {
+            color: #2c3e50;
             margin-bottom: 15px;
         }
-        
-        .user-stats {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 15px;
+        h2 {
+            color: #34495e;
+            margin: 20px 0 10px;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
         }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-num {
-            font-size: 18px;
-            font-weight: 600;
-            color: #fc5531;
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            color: #999;
-        }
-        
-        .user-desc {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 15px;
-        }
-        
-        .btn-follow {
+        .skill {
             display: inline-block;
-            background: #fc5531;
-            color: #fff;
-            padding: 8px 20px;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: background 0.3s;
-            cursor: pointer;
-        }
-        
-        .btn-follow:hover {
-            background: #e64522;
-        }
-        
-        /* 个人成就 */
-        .achievement-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        
-        .achievement-item {
-            text-align: center;
-            padding: 15px 10px;
-            border-radius: 6px;
-            background: #f8f9fa;
-            transition: all 0.3s;
-        }
-        
-        .achievement-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .achievement-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-            color: #fc5531;
-        }
-        
-        .achievement-name {
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-        
-        .achievement-desc {
-            font-size: 12px;
-            color: #999;
-        }
-        
-        /* 热门文章 */
-        .hot-article-item {
-            display: flex;
-            padding: 10px 0;
-            border-bottom: 1px solid #f5f5f5;
-        }
-        
-        .hot-article-item:last-child {
-            border-bottom: none;
-        }
-        
-        .hot-article-rank {
-            width: 24px;
-            height: 24px;
-            background: #fc5531;
-            color: #fff;
-            border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            margin-right: 10px;
-            flex-shrink: 0;
-        }
-        
-        .hot-article-rank.top3 {
-            background: #fc5531;
-        }
-        
-        .hot-article-title {
-            font-size: 14px;
-            line-height: 1.4;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-        
-        /* 快捷访问 */
-        .quick-links {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
-        
-        .quick-link {
-            display: flex;
-            align-items: center;
-            padding: 10px 15px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            transition: all 0.3s;
-        }
-        
-        .quick-link:hover {
-            background: #fc5531;
-            color: #fff;
-        }
-        
-        .quick-link:hover .quick-icon {
-            color: #fff;
-        }
-        
-        .quick-icon {
-            font-size: 18px;
-            margin-right: 10px;
-            color: #fc5531;
-        }
-        
-        .quick-text {
-            font-size: 14px;
-        }
-        
-        /* 内容区 */
-        .content-area {
-            flex: 1;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-        }
-        
-        .content-tabs {
-            display: flex;
-            background: #f8f9fa;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .tab {
-            padding: 15px 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border-bottom: 3px solid transparent;
-        }
-        
-        .tab.active {
-            color: #fc5531;
-            border-bottom: 3px solid #fc5531;
-            background: #fff;
-        }
-        
-        .tab:hover {
-            background: #fff;
-        }
-        
-        .tab-content {
-            display: none;
-            padding: 20px;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        /* 文章列表 */
-        .article-list {
-            margin-top: 10px;
-        }
-        
-        .article-item {
-            padding: 20px 0;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        
-        .article-item:hover {
-            background: #f9f9f9;
-        }
-        
-        .article-item:last-child {
-            border-bottom: none;
-        }
-        
-        .article-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .article-title a {
-            color: #333;
-            transition: color 0.3s;
-        }
-        
-        .article-title a:hover {
-            color: #fc5531;
-        }
-        
-        .article-meta {
-            display: flex;
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 10px;
-        }
-        
-        .article-meta span {
-            margin-right: 15px;
-        }
-        
-        .article-summary {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.7;
-            margin-bottom: 10px;
-        }
-        
-        .article-tags {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        .tag {
-            background: #f2f2f2;
-            color: #666;
-            font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 2px;
-            margin-right: 8px;
-            margin-bottom: 5px;
-        }
-        
-        .original-badge {
-            display: inline-block;
-            background: #fc5531;
+            background: #3498db;
             color: white;
-            font-size: 12px;
-            padding: 1px 6px;
-            border-radius: 2px;
-            margin-right: 8px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            margin: 5px;
         }
-        
-        /* 页脚 */
-        footer {
-            background: #fff;
-            margin-top: 40px;
-            padding: 30px 0;
-            border-top: 1px solid #eee;
-            text-align: center;
-            color: #999;
-            font-size: 14px;
+        a {
+            color: #3498db;
+            text-decoration: none;
         }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 15px;
+        a:hover {
+            text-decoration: underline;
         }
-        
-        .footer-links a {
-            margin: 0 10px;
-            color: #666;
-            transition: color 0.3s;
+        .file-section {
+            margin-top: 30px;
         }
-        
-        .footer-links a:hover {
-            color: #fc5531;
+        #fileInput {
+            margin: 10px 0;
         }
-        
-        /* 响应式设计 */
-        @media (max-width: 992px) {
-            .main-content {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-            }
-            
-            .achievement-list {
-                grid-template-columns: repeat(4, 1fr);
-            }
+        #preview {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            min-height: 100px;
+            white-space: pre-wrap;
+            border: 1px solid #ddd;
         }
-        
-        @media (max-width: 768px) {
-            .navbar {
-                flex-wrap: wrap;
-                height: auto;
-                padding: 10px 0;
-            }
-            
-            .nav-links {
-                order: 3;
-                width: 100%;
-                margin-top: 10px;
-                justify-content: center;
-            }
-            
-            .search-box {
-                width: 150px;
-            }
-            
-            .achievement-list {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        /* 加载状态 */
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
-        
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #fc5531;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 2s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .download-btn {
+            background: #2ecc71;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
-    <!-- 顶部导航栏 -->
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <div class="logo">
-                    <h1>CSDN博客</h1>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#">首页</a></li>
-                    <li><a href="#">博客</a></li>
-                    <li><a href="#">专栏</a></li>
-                    <li><a href="#">下载</a></li>
-                    <li><a href="#">论坛</a></li>
-                    <li><a href="#">问答</a></li>
-                    <li><a href="#">学院</a></li>
-                </ul>
-                <div class="search-box">
-                    <input type="text" placeholder="搜索博客内容">
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <div class="container">
-        <!-- 主要内容区 -->
-        <div class="main-content">
-            <!-- 侧边栏 -->
-            <div class="sidebar">
-                <!-- 用户信息 -->
-                <div class="sidebar-widget user-info">
-                    <div class="avatar">
-                        <img src="" alt="用户头像" id="user-avatar" onerror="this.src='https://profile-avatar.csdnimg.cn/default/3.png'">
-                    </div>
-                    <h3 class="username" id="username">加载中...</h3>
-                    <div class="user-location" id="user-location">
-                        <i class="fas fa-map-marker-alt"></i> IP属地：<span id="location">加载中...</span>
-                    </div>
-                    <div class="user-stats">
-                        <div class="stat-item">
-                            <div class="stat-num" id="visit-count">0</div>
-                            <div class="stat-label">访问</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-num" id="follower-count">0</div>
-                            <div class="stat-label">粉丝</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-num" id="following-count">0</div>
-                            <div class="stat-label">关注</div>
-                        </div>
-                    </div>
-                    <div class="user-desc" id="user-description">加载中...</div>
-                    <button class="btn-follow" id="follow-btn">关注</button>
-                </div>
-                
-                <!-- 个人成就 -->
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">
-                        <i class="fas fa-trophy"></i> 个人成就
-                    </h3>
-                    <div class="achievement-list" id="achievement-list">
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            <p>加载中...</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 热门文章 -->
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">
-                        <i class="fas fa-chart-line"></i> 最热文章
-                    </h3>
-                    <div id="hot-articles-list">
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            <p>加载中...</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 快捷访问 -->
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">
-                        <i class="fas fa-link"></i> 快捷访问
-                    </h3>
-                    <div class="quick-links">
-                        <a href="https://github.com" class="quick-link" target="_blank">
-                            <div class="quick-icon">
-                                <i class="fab fa-github"></i>
-                            </div>
-                            <div class="quick-text">GitHub</div>
-                        </a>
-                        <a href="https://blog.csdn.net/qq_45812950" class="quick-link" target="_blank">
-                            <div class="quick-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <div class="quick-text">代码仓库</div>
-                        </a>
-                        <a href="https://blog.csdn.net/qq_45812950?type=blog" class="quick-link" target="_blank">
-                            <div class="quick-icon">
-                                <i class="fas fa-book"></i>
-                            </div>
-                            <div class="quick-text">学习笔记</div>
-                        </a>
-                        <a href="https://blog.csdn.net/qq_45812950?type=download" class="quick-link" target="_blank">
-                            <div class="quick-icon">
-                                <i class="fas fa-project-diagram"></i>
-                            </div>
-                            <div class="quick-text">我的项目</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 内容区 -->
-            <div class="content-area">
-                <div class="content-tabs">
-                    <div class="tab active" data-tab="articles">文章</div>
-                    <div class="tab" data-tab="columns">专栏</div>
-                </div>
-
-                <!-- 文章列表 -->
-                <div class="tab-content active" id="articles">
-                    <div class="article-list" id="article-list">
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            <p>正在爬取CSDN数据...</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 专栏 -->
-                <div class="tab-content" id="columns">
-                    <div class="article-list" id="column-list">
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            <p>正在加载专栏数据...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="card">
+        <h1>你好，我是 XXX</h1>
+        <p>热爱编程、持续学习、专注实践</p>
     </div>
 
-    <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <div class="footer-links">
-                <a href="https://blog.csdn.net/qq_45812950" target="_blank">关于我</a>
-                <a href="https://www.csdn.net/contact" target="_blank">联系我们</a>
-                <a href="https://www.csdn.net/tags/MtTaMg0sMjcxNDAtYmxvZwO0O0OO0O0O.html" target="_blank">服务条款</a>
-                <a href="https://www.csdn.net/privacy" target="_blank">隐私政策</a>
-                <a href="https://help.csdn.net/" target="_blank">帮助中心</a>
-            </div>
-            <p>© 2025 小叮当的技术博客 版权所有 | 数据来源：CSDN</p>
-        </div>
-    </footer>
+    <div class="card">
+        <h2>📌 个人简介</h2>
+        <p>一名前端 / 后端 / 全栈开发者（可自己修改），喜欢用代码解决实际问题，擅长快速学习新技术并落地。</p>
+    </div>
+
+    <div class="card">
+        <h2>🛠 技能栈</h2>
+        <div class="skill">HTML</div>
+        <div class="skill">CSS</div>
+        <div class="skill">JavaScript</div>
+        <div class="skill">Git</div>
+        <div class="skill">GitHub</div>
+        <div class="skill">Python</div>
+        <!-- 自己增删 -->
+    </div>
+
+    <div class="card">
+        <h2>📞 联系方式</h2>
+        <p>GitHub：<a href="https://github.com/你的用户名" target="_blank">https://github.com/你的用户名</a></p>
+        <p>邮箱：your@email.com</p>
+    </div>
+
+    <!-- ====================== TXT 文件功能 ====================== -->
+    <div class="card file-section">
+        <h2>📄 TXT 文件管理</h2>
+        
+        <h3>✅ 我的文件（可直接下载）</h3>
+        <p><a href="files/简历.txt" download>简历.txt</a></p>
+        <p><a href="files/学习笔记.txt" download>学习笔记.txt</a></p>
+        <p><a href="files/项目说明.txt" download>项目说明.txt</a></p>
+
+        <hr style="margin:20px 0">
+
+        <h3>⬆️ 本地上传 TXT 文件（预览+下载）</h3>
+        <input type="file" id="fileInput" accept=".txt">
+        <div id="preview">请选择一个 TXT 文件...</div>
+        <button id="downloadBtn" class="download-btn" style="display:none;">下载此文件</button>
+    </div>
 
     <script>
-        // 目标CSDN用户页面
-        const CSDN_URL = 'https://blog.csdn.net/qq_45812950?type=sub&subType=fans';
-        
-        // 初始化页面
-        document.addEventListener('DOMContentLoaded', function() {
-            // 开始爬取数据
-            fetchCSDNData();
+        // 本地 TXT 上传预览
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('preview');
+        const downloadBtn = document.getElementById('downloadBtn');
+        let currentFile;
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
             
-            // 标签切换功能
-            const tabs = document.querySelectorAll('.tab');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    
-                    // 移除所有active类
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tabContents.forEach(c => c.classList.remove('active'));
-                    
-                    // 添加active类到当前标签和内容
-                    this.classList.add('active');
-                    document.getElementById(tabId).classList.add('active');
-                });
-            });
-            
-            // 关注按钮点击效果
-            const followBtn = document.getElementById('follow-btn');
-            if (followBtn) {
-                followBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    if (this.textContent === '关注') {
-                        this.textContent = '已关注';
-                        this.style.background = '#999';
-                    } else {
-                        this.textContent = '关注';
-                        this.style.background = '#fc5531';
-                    }
-                });
-            }
+            currentFile = file;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                preview.textContent = event.target.result;
+                downloadBtn.style.display = 'inline-block';
+            };
+            reader.readAsText(file);
         });
 
-        // 使用CORS代理获取CSDN数据
-        async function fetchCSDNData() {
-            try {
-                // 使用CORS代理绕过跨域限制
-                const proxyUrl = 'https://api.allorigins.win/raw?url=';
-                const response = await fetch(proxyUrl + encodeURIComponent(CSDN_URL));
-                
-                if (!response.ok) {
-                    throw new Error('网络请求失败');
-                }
-                
-                const html = await response.text();
-                parseCSDNData(html);
-                
-            } catch (error) {
-                console.error('获取CSDN数据失败:', error);
-                showError('无法获取CSDN数据，请检查网络连接或稍后重试');
-            }
-        }
-
-        // 解析CSDN页面数据
-        function parseCSDNData(html) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            
-            // 提取用户信息
-            extractUserInfo(doc);
-            
-            // 提取文章数据
-            extractArticles(doc);
-            
-            // 提取专栏数据
-            extractColumns(doc);
-            
-            // 提取热门文章
-            extractHotArticles(doc);
-            
-            // 提取个人成就
-            extractAchievements(doc);
-        }
-
-        // 提取用户信息
-        function extractUserInfo(doc) {
-            try {
-                // 从页面标题提取用户名
-                const title = doc.querySelector('title');
-                const username = title ? title.textContent.split('-')[0].trim() : '小叮当⇔';
-                
-                // 从meta描述提取用户描述
-                const descriptionMeta = doc.querySelector('meta[name="description"]');
-                const description = descriptionMeta ? descriptionMeta.getAttribute('content') : 'CSDN博客用户';
-                
-                // 提取用户头像
-                const avatar = doc.querySelector('.user-profile-avatar img');
-                const avatarUrl = avatar ? avatar.src : 'https://profile-avatar.csdnimg.cn/default/3.png';
-                
-                // 提取IP属地
-                const locationElem = doc.querySelector('.user-profile-head-address .address');
-                const location = locationElem ? locationElem.textContent.replace('IP 属地：', '') : '未知';
-                
-                // 提取统计数据
-                const stats = doc.querySelectorAll('.user-profile-statistics-num');
-                const visitCount = stats[0] ? stats[0].textContent : '0';
-                const originalCount = stats[1] ? stats[1].textContent : '0';
-                const followerCount = stats[2] ? stats[2].textContent : '0';
-                const followingCount = stats[3] ? stats[3].textContent : '0';
-                
-                // 更新页面
-                document.getElementById('username').textContent = username;
-                document.getElementById('user-avatar').src = avatarUrl;
-                document.getElementById('location').textContent = location;
-                document.getElementById('visit-count').textContent = visitCount;
-                document.getElementById('follower-count').textContent = followerCount;
-                document.getElementById('following-count').textContent = followingCount;
-                document.getElementById('user-description').textContent = description;
-                
-            } catch (error) {
-                console.error('提取用户信息失败:', error);
-            }
-        }
-
-        // 提取文章数据
-        function extractArticles(doc) {
-            try {
-                const articleList = document.getElementById('article-list');
-                const articles = doc.querySelectorAll('.blog-list-box');
-                
-                if (articles.length === 0) {
-                    articleList.innerHTML = '<div class="loading"><p>暂无文章数据</p></div>';
-                    return;
-                }
-                
-                let articlesHTML = '';
-                
-                articles.forEach((article, index) => {
-                    if (index >= 10) return; // 只显示前10篇文章
-                    
-                    const titleElem = article.querySelector('h4');
-                    const linkElem = article.querySelector('a');
-                    const descElem = article.querySelector('.blog-list-content');
-                    const imgElem = article.querySelector('.course-img');
-                    const metaElem = article.querySelector('.blog-list-footer-left');
-                    const originalElem = article.querySelector('.article-type-yc');
-                    
-                    const title = titleElem ? titleElem.textContent.trim() : '未知标题';
-                    const link = linkElem ? linkElem.href : '#';
-                    const description = descElem ? descElem.textContent.trim().substring(0, 150) + '...' : '暂无描述';
-                    const image = imgElem ? imgElem.src : '';
-                    const isOriginal = !!originalElem;
-                    
-                    // 提取阅读量、点赞数等
-                    let readCount = '0', likeCount = '0', commentCount = '0';
-                    if (metaElem) {
-                        const viewElems = metaElem.querySelectorAll('.view-num');
-                        const likeElems = metaElem.querySelectorAll('.give-like-num');
-                        const commentElems = metaElem.querySelectorAll('.comment-num');
-                        
-                        readCount = viewElems[0] ? viewElems[0].textContent : '0';
-                        likeCount = likeElems[0] ? likeElems[0].textContent : '0';
-                        commentCount = commentElems[0] ? commentElems[0].textContent : '0';
-                    }
-                    
-                    const dateElem = article.querySelector('.view-time-box');
-                    const date = dateElem ? dateElem.textContent.replace('博文更新于 ', '') : '';
-                    
-                    articlesHTML += `
-                        <div class="article-item">
-                            <h2 class="article-title">
-                                <a href="${link}" target="_blank">${title}</a>
-                                ${isOriginal ? '<span class="original-badge">原创</span>' : ''}
-                            </h2>
-                            <div class="article-meta">
-                                <span>${date}</span>
-                                <span>阅读 ${readCount}</span>
-                                <span>评论 ${commentCount}</span>
-                                <span>点赞 ${likeCount}</span>
-                            </div>
-                            <p class="article-summary">
-                                ${description}
-                            </p>
-                            <div class="article-tags">
-                                <span class="tag">技术</span>
-                                <span class="tag">编程</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                articleList.innerHTML = articlesHTML;
-                
-            } catch (error) {
-                console.error('提取文章数据失败:', error);
-                document.getElementById('article-list').innerHTML = '<div class="loading"><p>加载文章失败</p></div>';
-            }
-        }
-
-        // 提取专栏数据
-        function extractColumns(doc) {
-            try {
-                const columnList = document.getElementById('column-list');
-                const columns = doc.querySelectorAll('.special-column-name');
-                
-                if (columns.length === 0) {
-                    columnList.innerHTML = '<div class="loading"><p>暂无专栏数据</p></div>';
-                    return;
-                }
-                
-                let columnsHTML = '';
-                
-                columns.forEach((column, index) => {
-                    if (index >= 5) return; // 只显示前5个专栏
-                    
-                    const titleElem = column.querySelector('span');
-                    const linkElem = column;
-                    const countElem = column.parentElement.querySelector('.special-column-num');
-                    
-                    const title = titleElem ? titleElem.textContent.trim() : '未知专栏';
-                    const link = linkElem ? linkElem.href : '#';
-                    const count = countElem ? countElem.textContent : '0篇';
-                    
-                    columnsHTML += `
-                        <div class="article-item">
-                            <h2 class="article-title">
-                                <a href="${link}" target="_blank">${title}</a>
-                            </h2>
-                            <div class="article-meta">
-                                <span>专栏 · 已更新 ${count}</span>
-                            </div>
-                            <p class="article-summary">
-                                这是一个技术专栏，分享${title}相关的知识和经验。
-                            </p>
-                        </div>
-                    `;
-                });
-                
-                columnList.innerHTML = columnsHTML;
-                
-            } catch (error) {
-                console.error('提取专栏数据失败:', error);
-                document.getElementById('column-list').innerHTML = '<div class="loading"><p>加载专栏失败</p></div>';
-            }
-        }
-
-        // 提取热门文章
-        function extractHotArticles(doc) {
-            try {
-                const hotArticlesList = document.getElementById('hot-articles-list');
-                const articles = doc.querySelectorAll('.blog-list-box');
-                
-                if (articles.length === 0) {
-                    hotArticlesList.innerHTML = '<p>暂无热门文章</p>';
-                    return;
-                }
-                
-                let hotArticlesHTML = '';
-                
-                // 取阅读量最高的5篇文章作为热门文章
-                const topArticles = Array.from(articles)
-                    .slice(0, 5)
-                    .map(article => {
-                        const titleElem = article.querySelector('h4');
-                        const linkElem = article.querySelector('a');
-                        const viewElem = article.querySelector('.view-num');
-                        
-                        return {
-                            title: titleElem ? titleElem.textContent.trim() : '未知标题',
-                            link: linkElem ? linkElem.href : '#',
-                            views: viewElem ? parseInt(viewElem.textContent) || 0 : 0
-                        };
-                    })
-                    .sort((a, b) => b.views - a.views);
-                
-                topArticles.forEach((article, index) => {
-                    const rankClass = index < 3 ? 'top3' : '';
-                    
-                    hotArticlesHTML += `
-                        <div class="hot-article-item">
-                            <div class="hot-article-rank ${rankClass}">${index + 1}</div>
-                            <div class="hot-article-title">
-                                <a href="${article.link}" target="_blank">${article.title}</a>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                hotArticlesList.innerHTML = hotArticlesHTML;
-                
-            } catch (error) {
-                console.error('提取热门文章失败:', error);
-                document.getElementById('hot-articles-list').innerHTML = '<p>加载热门文章失败</p>';
-            }
-        }
-
-        // 提取个人成就
-        function extractAchievements(doc) {
-            try {
-                const achievementList = document.getElementById('achievement-list');
-                const achievements = doc.querySelectorAll('.aside-common-box-achievement li');
-                
-                if (achievements.length === 0) {
-                    // 使用默认成就
-                    achievementList.innerHTML = `
-                        <div class="achievement-item">
-                            <div class="achievement-icon"><i class="fas fa-pen-fancy"></i></div>
-                            <div class="achievement-name">原创文章</div>
-                            <div class="achievement-desc">持续创作</div>
-                        </div>
-                        <div class="achievement-item">
-                            <div class="achievement-icon"><i class="fas fa-users"></i></div>
-                            <div class="achievement-name">粉丝关注</div>
-                            <div class="achievement-desc">获得认可</div>
-                        </div>
-                        <div class="achievement-item">
-                            <div class="achievement-icon"><i class="fas fa-eye"></i></div>
-                            <div class="achievement-name">文章阅读</div>
-                            <div class="achievement-desc">广泛传播</div>
-                        </div>
-                        <div class="achievement-item">
-                            <div class="achievement-icon"><i class="fas fa-code"></i></div>
-                            <div class="achievement-name">技术分享</div>
-                            <div class="achievement-desc">知识传播</div>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                let achievementsHTML = '';
-                
-                achievements.forEach((achievement, index) => {
-                    if (index >= 4) return; // 只显示前4个成就
-                    
-                    const iconElem = achievement.querySelector('i');
-                    const textElem = achievement.querySelector('.aside-common-box-content-text');
-                    
-                    const iconStyle = iconElem ? iconElem.style.backgroundImage : '';
-                    const text = textElem ? textElem.textContent.trim() : '成就';
-                    
-                    achievementsHTML += `
-                        <div class="achievement-item">
-                            <div class="achievement-icon" style="${iconStyle ? `background-image: ${iconStyle}` : ''}">
-                                ${!iconStyle ? '<i class="fas fa-trophy"></i>' : ''}
-                            </div>
-                            <div class="achievement-name">${text}</div>
-                            <div class="achievement-desc">个人成就</div>
-                        </div>
-                    `;
-                });
-                
-                achievementList.innerHTML = achievementsHTML;
-                
-            } catch (error) {
-                console.error('提取个人成就失败:', error);
-            }
-        }
-
-        // 显示错误信息
-        function showError(message) {
-            const articleList = document.getElementById('article-list');
-            articleList.innerHTML = `
-                <div class="loading">
-                    <p style="color: #dc3545;">${message}</p>
-                    <button onclick="fetchCSDNData()" class="btn-follow" style="margin-top: 10px;">重新加载</button>
-                </div>
-            `;
-        }
+        // 下载本地预览的文件
+        downloadBtn.addEventListener('click', () => {
+            if (!currentFile) return;
+            const url = URL.createObjectURL(currentFile);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = currentFile.name;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
     </script>
 </body>
 </html>
